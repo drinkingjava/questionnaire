@@ -1,0 +1,23 @@
+<h1>Title: {{ question.name }}</h1>
+
+<p><strong>User: </strong>{{ user }}</p>
+<p><strong>Description:</strong> {{ question.question }}</p>
+<p><strong>Category:</strong> {{ question.category.all|join:", " }}</p>
+<p>{{form.as_p}}</p>
+
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Attempts</h4>
+
+    {% for copy in question.questioninstance_set.all %}
+    <hr>
+    <p
+        class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {{ copy.get_status_display }}
+    </p>
+    {% if copy.status != 'a' %}
+    <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
+    {% endif %}
+    <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
+    <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+    {% endfor %}
+</div>

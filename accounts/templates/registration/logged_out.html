@@ -1,1 +1,4 @@
-<h1>Successfully logout {{user}}</h1>
+{% block content %}
+<p>Logged out!</p>
+<a href="{% url 'login'%}">Click here to login again.</a>
+{% endblock %}
