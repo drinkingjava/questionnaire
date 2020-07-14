@@ -1,24 +1,21 @@
-<h1>Welcome to Questionnaire</h1>
-{% if user.is_authenticated %}
-<p>User: {{ user.get_username }}</p>
-<button><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></button>
-{% else %}
+{% extends 'base.html'%}
 
-<button><a href="{% url 'accounts:sign_up'%}?next={{request.path}}">Signup</a></button>
-<button><a href="{% url 'login'%}?next={{request.path}}">Login</a></button>
-
-{% endif %}
-
-{{question_list}}
-<h1>Question List</h1>
-{% if question_list %}
-<ul>
-    {% for question in question_list %}
-    <li>
-        <a href="{{ question.get_absolute_url }}">{{ question.name }}</a> 
-    </li>
-    {% endfor %}
+{% block sidebar %}
+<h3>Question List</h3>
+<ul class="sidebar-nav">
+    {% if question_list %}
+        {% for question in question_list %}
+        <li>
+            <a href="{{ question.get_absolute_url }}">{{ question.name }}</a>
+        </li>
+        {% endfor %}
+    {% else %}
+    <li>There are no questions available.</li> </p>
+    {% endif %}
 </ul>
-{% else %}
-<p>There are no questions in the library.</p>
-{% endif %}
+{% endblock %}
+
+{% block content%}
+
+
+{% endblock%}

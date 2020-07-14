@@ -11,7 +11,7 @@ def sign_up(request):
     if request.method == 'POST':
         if form.is_valid():
             user = form.save()
-            login(request, request.user)
-            return render(request, 'questions/question_list.html')
+            login(request, user)
+            return render(request, 'registration/sign_up_success.html')
     context['form'] = form
     return render(request, 'registration/sign_up.html', context)

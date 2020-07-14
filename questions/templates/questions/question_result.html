@@ -1,3 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>Result for {{question_instance}}</h1>
-<p>Status: {{question_instance.status}}</p>
-<p>Go back to question <a href="{% url 'question-list' %}">list</a></p>
+<p>Status: {{question_instance.get_status_display}}</p>
+{% if question_instance.status == 'f' %}
+<p>Retry ?<a href="{% url 'question-list' question_id %}"></a></p>
+{% else %}
+<p>Back to <a href="{% url 'question-list' %}">Questions?</a></p>
+{% endif %}
+{% endblock %}

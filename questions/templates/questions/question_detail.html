@@ -1,22 +1,33 @@
-<h1>Title: {{ question.name }}</h1>
+{% extends 'questions/question_list.html' %}
+{% load crispy_forms_tags %}
 
-<p><strong>User: </strong>{{ user }}</p>
-<p><strong>Description:</strong> {{ question.question }}</p>
-<p><strong>Category:</strong> {{ question.category.all|join:", " }}</p>
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" type="submit" value="Submit">
-</form>
+{% block content %}
+<h1>{{ question.name }}</h1>
 
-<div style="margin-left:20px;margin-top:20px">
-    <h4>Attempts</h4>
+<div class="col-6 mr-auto">
+    <p><strong>Description:</strong> {{ question.question }}</p>
+    <p><strong>Category:</strong> {{ question.category.all|join:", " }}</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="row">
+            <div class="col-2">
+                <input class="form-control" type="submit" type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="ml-4 mt-4">
+    <h4>Attempts </h4>
+    <p>{% if not attempts %} No Attempts yet {% endif %}</p>
     {% for attempt in attempts %}
     <hr>
     <p
         class="{% if attempt.status == 'p' %}text-success{% elif attempt.status == 'f' %}text-danger{% else %}text-warning{% endif %}">
         {{ attempt.get_status_display }}
     </p>
-    <p class="text-muted"><strong>Answer:</strong> {{ attempt }}</p>
+    <p class="text-muted"><strong>Answer:</strong> {{ attempt.attempt }}</p>
     {% endfor %}
 </div>
+{% endblock %}

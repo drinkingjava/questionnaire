@@ -4,8 +4,11 @@ from .models import QuestionInstance
 
 
 class AnswerForm(forms.ModelForm):
-    # answer = forms.CharField(max_length=widget=forms.TextInput)
 
     class Meta:
         model = QuestionInstance
         fields = ['attempt']
+
+    widget = {
+        'attempt': forms.TextInput(attrs={'class': 'form-control'})
+    }

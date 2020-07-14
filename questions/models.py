@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 
 class Category(models.Model):
     name = models.CharField(
-        max_length=200, help_text='Enter a question category (e.g. Math, Programming)')
+        max_length=200, help_text='Enter a question category (e.g. Math, Programming, History)')
 
     def __str__(self):
         return self.name
