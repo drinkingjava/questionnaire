@@ -24,7 +24,6 @@ def question_detail_view(request, question_id):
                 q_instance.status = 'f'
             q_instance.save()
             context['question_instance'] = q_instance
-            context['question_id'] = question_id
         return render(request, 'questions/question_result.html', context)
 
     else:
